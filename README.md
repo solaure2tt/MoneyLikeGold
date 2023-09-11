@@ -1,30 +1,35 @@
 # MoneyLikeGold
 ================================================================================
 
-## Description
-This application is to manage the money present in a banking account. It allow to create an account, do transactions an view balance.
+## Introduction
+This application is to manage the money present in a banking account. It allow to create an account, do transactions (Withdraw, deposit and transfer) an view balance.
 
-## How to use the application
+## Installation
+clone this repository in your local machine with this command: git clone https://github.com/solaure2tt/MoneyLikeGold.git
+move into the folder MoneyLikeGold and do the next steps ( how to use the application)
 
-create the database
+## Usage: How to use the application
+
+1. create the database
 
 cat setup_mysql_dev.sql | mysql -hlocalhost -uroot -p
 
 
-
+2. launch the application
+   
 in one terminal type:
 
 MLG_MYSQL_USER=mlg_dev MLG_MYSQL_PWD=mlg_dev_pwd MLG_MYSQL_HOST=localhost MLG_MYSQL_DB=mlg_dev_db MLG_TYPE_STORAGE=db MLG_API_HOST=0.0.0.0 MLG_API_PORT=5000 python3 -m api.v1.app
 
 
-In another terminal you can test the application by calling the good API
+In another terminal you can test the application by calling the good API like shows below.
 
 ### Create a user
 
 curl -X POST http://0.0.0.0:5000/api/v1/users/ -H "Content-Type: application/json" -d '{"email": "YOUR_EMAIL", "YOUR_PASSWORD": "lor", "last_name": "YOUR_NAME"}'
+
 example: 
 curl -X POST http://0.0.0.0:5000/api/v1/users/ -H "Content-Type: application/json" -d '{"email": "lor@yahoo.fr", "password": "lor", "last_name": "Laure"}'
-
 
 {"__class__":"User","created_at":"2023-08-27T12:29:33.439521","email":"lor@yahoo.fr","id":"e4965fba-3013-4650-a803-4720fc5cb887","last_name":"Laure","password":"lor","updated_at":"2023-08-27T12:29:33.439533"}
 
@@ -32,6 +37,7 @@ curl -X POST http://0.0.0.0:5000/api/v1/users/ -H "Content-Type: application/jso
 ### View a specific user
 
 curl -X GET http://0.0.0.0:5000/api/v1/users/USER_ID
+
 example:
 curl -X GET http://0.0.0.0:5000/api/v1/users/e4965fba-3013-4650-a803-4720fc5cb887 
 
@@ -39,6 +45,7 @@ curl -X GET http://0.0.0.0:5000/api/v1/users/e4965fba-3013-4650-a803-4720fc5cb88
 ### Update a user
 
 curl -X PUT http://0.0.0.0:5000/api/v1/users/USER_ID -H "Content-Type: application/json" -d '{"field": value, …, “field”: value}'
+
 example: 
 curl -X PUT http://0.0.0.0:5000/api/v1/users/e4965fba-3013-4650-a803-4720fc5cb887 -H "Content-Type: application/json" -d '{"first_name": “Alain”}'
 
@@ -46,9 +53,6 @@ curl -X PUT http://0.0.0.0:5000/api/v1/users/e4965fba-3013-4650-a803-4720fc5cb88
 ### List all users
 
 curl -X GET http://0.0.0.0:5000/api/v1/users
-
-
-
 
 ### Delete a user
 
@@ -135,17 +139,12 @@ curl -X GET http://0.0.0.0:5000/api/v1/transactions/
 
 curl -X DELETE http://0.0.0.0:5000/api/v1/transactions/TRANSACTION_ID
 
-
-
-
 ### List all transactions in a specific account
 
 curl -X GET http://0.0.0.0:5000/api/v1/account/ACCOUNT_ID/transactions
 
 Example:
 curl -X GET http://0.0.0.0:5000/api/v1/account/c3371231-ab62-449a-962f-76612c701141/transactions
-
-
 
 ### List all transactions for a specific user
 
@@ -161,6 +160,5 @@ curl -X GET http://0.0.0.0:5000/api/v1/account_balance/ACCOUNT_ID
 
 Example:
 curl -X GET http://0.0.0.0:5000/api/v1/account_balance/6595efa3-3d47-4695-b040-658898f0f0d9
-
 
 
